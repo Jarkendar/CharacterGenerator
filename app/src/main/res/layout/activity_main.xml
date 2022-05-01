@@ -1,277 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.3"/>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.skrzypczak.charactergenerator.CharacterViewModel"/>
+    </data>
 
-    <TextView
-        android:id="@+id/label_character_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Character name"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        android:labelFor="@id/edit_character_name"/>
 
-    <EditText
-        android:id="@+id/edit_character_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/label_character_name"
-        app:layout_constraintBottom_toBottomOf="@id/label_character_name"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="text"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/label_race"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_character_name"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/spinner_race"
-        android:text="Race"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.3"/>
 
-    <Spinner
-        android:id="@+id/spinner_race"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/label_race"
-        app:layout_constraintBottom_toBottomOf="@id/label_race"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:entries="@array/races"
-        />
+        <TextView
+            android:id="@+id/label_character_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Character name"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            android:labelFor="@id/edit_character_name"/>
 
-    <TextView
-        android:id="@+id/label_strong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_race"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_strong"
-        android:text="Strong"/>
+        <EditText
+            android:id="@+id/edit_character_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/label_character_name"
+            app:layout_constraintBottom_toBottomOf="@id/label_character_name"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            />
 
-    <SeekBar
-        android:id="@+id/seekBar_strong"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="3"
-        android:progressBackgroundTint="#9DFF00"
-        android:progressTint="#9DFF00"
-        android:thumbTint="#9DFF00"
-        app:layout_constraintBottom_toBottomOf="@id/label_strong"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_strong" />
+        <TextView
+            android:id="@+id/label_race"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_character_name"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/spinner_race"
+            android:text="Race"/>
 
-    <TextView
-        android:id="@+id/label_wisdom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_strong"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_wisdom"
-        android:text="Wisdom"/>
+        <Spinner
+            android:id="@+id/spinner_race"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/label_race"
+            app:layout_constraintBottom_toBottomOf="@id/label_race"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:entries="@array/races"
+            />
 
-    <SeekBar
-        android:id="@+id/seekBar_wisdom"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="3"
-        android:progressBackgroundTint="#9DFF00"
-        android:progressTint="#9DFF00"
-        android:thumbTint="#9DFF00"
-        app:layout_constraintBottom_toBottomOf="@id/label_wisdom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_wisdom" />
+        <TextView
+            android:id="@+id/label_strong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_race"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_strong"
+            android:text="Strong"/>
 
-    <TextView
-        android:id="@+id/label_dexterity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_wisdom"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_dexterity"
-        android:text="Dexterity"/>
+        <SeekBar
+            android:id="@+id/seekBar_strong"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="3"
+            android:progressBackgroundTint="#9DFF00"
+            android:progressTint="#9DFF00"
+            android:thumbTint="#9DFF00"
+            app:layout_constraintBottom_toBottomOf="@id/label_strong"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_strong" />
 
-    <SeekBar
-        android:id="@+id/seekBar_dexterity"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="3"
-        android:progressBackgroundTint="#9DFF00"
-        android:progressTint="#9DFF00"
-        android:thumbTint="#9DFF00"
-        app:layout_constraintBottom_toBottomOf="@id/label_dexterity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_dexterity" />
+        <TextView
+            android:id="@+id/label_wisdom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_strong"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_wisdom"
+            android:text="Wisdom"/>
 
-    <TextView
-        android:id="@+id/label_soul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_dexterity"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_soul"
-        android:text="Soul"/>
+        <SeekBar
+            android:id="@+id/seekBar_wisdom"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="3"
+            android:progressBackgroundTint="#9DFF00"
+            android:progressTint="#9DFF00"
+            android:thumbTint="#9DFF00"
+            app:layout_constraintBottom_toBottomOf="@id/label_wisdom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_wisdom" />
 
-    <SeekBar
-        android:id="@+id/seekBar_soul"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="3"
-        android:progressBackgroundTint="#9DFF00"
-        android:progressTint="#9DFF00"
-        android:thumbTint="#9DFF00"
-        app:layout_constraintBottom_toBottomOf="@id/label_soul"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_soul" />
+        <TextView
+            android:id="@+id/label_dexterity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_wisdom"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_dexterity"
+            android:text="Dexterity"/>
 
-    <TextView
-        android:id="@+id/label_clever"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_soul"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_clever"
-        android:text="Clever"/>
+        <SeekBar
+            android:id="@+id/seekBar_dexterity"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="3"
+            android:progressBackgroundTint="#9DFF00"
+            android:progressTint="#9DFF00"
+            android:thumbTint="#9DFF00"
+            app:layout_constraintBottom_toBottomOf="@id/label_dexterity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_dexterity" />
 
-    <SeekBar
-        android:id="@+id/seekBar_clever"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="2"
-        android:progressBackgroundTint="#9DFF00"
-        android:progressTint="#9DFF00"
-        android:thumbTint="#9DFF00"
-        app:layout_constraintBottom_toBottomOf="@id/label_clever"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_clever" />
+        <TextView
+            android:id="@+id/label_soul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_dexterity"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_soul"
+            android:text="Soul"/>
 
-    <TextView
-        android:id="@+id/label_inspiration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_clever"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/label_inspiration"
-        android:text="Inspiration limit"/>
+        <SeekBar
+            android:id="@+id/seekBar_soul"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="3"
+            android:progressBackgroundTint="#9DFF00"
+            android:progressTint="#9DFF00"
+            android:thumbTint="#9DFF00"
+            app:layout_constraintBottom_toBottomOf="@id/label_soul"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_soul" />
 
-    <SeekBar
-        android:id="@+id/seekBar_inspiration"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="4"
-        android:progressBackgroundTint="#00F7FF"
-        android:progressTint="#00F7FF"
-        android:thumbTint="#00F7FF"
-        app:layout_constraintBottom_toBottomOf="@id/label_inspiration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_inspiration" />
+        <TextView
+            android:id="@+id/label_clever"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_soul"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_clever"
+            android:text="Clever"/>
 
-    <TextView
-        android:id="@+id/label_pain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_inspiration"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_pain"
-        android:text="Pain limit"/>
+        <SeekBar
+            android:id="@+id/seekBar_clever"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="2"
+            android:progressBackgroundTint="#9DFF00"
+            android:progressTint="#9DFF00"
+            android:thumbTint="#9DFF00"
+            app:layout_constraintBottom_toBottomOf="@id/label_clever"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_clever" />
 
-    <SeekBar
-        android:id="@+id/seekBar_pain"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="5"
-        android:progressBackgroundTint="#FF0000"
-        android:progressTint="#FF0000"
-        android:thumbTint="#FF0000"
-        app:layout_constraintBottom_toBottomOf="@id/label_pain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_pain" />
+        <TextView
+            android:id="@+id/label_inspiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_clever"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/label_inspiration"
+            android:text="Inspiration limit"/>
 
-    <TextView
-        android:id="@+id/label_fear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_pain"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:labelFor="@id/seekBar_pain"
-        android:text="Fear limit"/>
+        <SeekBar
+            android:id="@+id/seekBar_inspiration"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="4"
+            android:progressBackgroundTint="#00F7FF"
+            android:progressTint="#00F7FF"
+            android:thumbTint="#00F7FF"
+            app:layout_constraintBottom_toBottomOf="@id/label_inspiration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_inspiration" />
 
-    <SeekBar
-        android:id="@+id/seekBar_fear"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="9"
-        android:progress="3"
-        android:progressBackgroundTint="#FF0000"
-        android:progressTint="#FF0000"
-        android:thumbTint="#FF0000"
-        app:layout_constraintBottom_toBottomOf="@id/label_fear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/label_fear" />
+        <TextView
+            android:id="@+id/label_pain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_inspiration"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_pain"
+            android:text="Pain limit"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Done"/>
+        <SeekBar
+            android:id="@+id/seekBar_pain"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="5"
+            android:progressBackgroundTint="#FF0000"
+            android:progressTint="#FF0000"
+            android:thumbTint="#FF0000"
+            app:layout_constraintBottom_toBottomOf="@id/label_pain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_pain" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/label_fear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/label_pain"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/seekBar_pain"
+            android:text="Fear limit"/>
+
+        <SeekBar
+            android:id="@+id/seekBar_fear"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="3"
+            android:progressBackgroundTint="#FF0000"
+            android:progressTint="#FF0000"
+            android:thumbTint="#FF0000"
+            app:layout_constraintBottom_toBottomOf="@id/label_fear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/label_fear" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Done"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
