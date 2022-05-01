@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CharacterGenerator</string>
+
+    <string-array name="races">
+        <item>Human</item>
+        <item>Elves</item>
+        <item>Dwarf</item>
+        <item>Hobbit</item>
+        <item>Istari</item>
+        <item>Beorning</item>
+        <item>Orc</item>
+        <item>Ent</item>
+        <item>Troll</item>
+    </string-array>
 </resources>
