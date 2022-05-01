@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">CharacterGenerator</string>
+    <string name="label_character_name">Character name</string>
+    <string name="label_race">Race</string>
+    <string name="label_attr_strong">Strong</string>
+    <string name="label_attr_wisdom">Wisdom</string>
+    <string name="label_attr_dexterity">Dexterity</string>
+    <string name="label_attr_soul">Soul</string>
+    <string name="label_attr_clever">Clever</string>
+    <string name="label_inspiration_limit">Inspiration limit</string>
+    <string name="label_pain_limit">Pain limit</string>
+    <string name="label_fear_limit">Fear limit</string>
+    <string name="label_passive_skill">Passive skill</string>
+    <string name="button_done">Done</string>
 
     <string-array name="races">
         <item>Human</item>
