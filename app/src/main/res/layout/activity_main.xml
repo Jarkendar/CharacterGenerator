@@ -12,9 +12,11 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:background="@color/white"
         tools:context=".MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
