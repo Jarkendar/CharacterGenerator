@@ -93,6 +93,10 @@ class MainActivity : AppCompatActivity() {
             model.setSuggestItems(it.toString())
         }
 
+        findViewById<Button>(R.id.button_start_activity).setOnClickListener {
+            startActivity(Intent(this, CardsActivity::class.java))
+        }
+
         findViewById<Button>(R.id.button_done).setOnClickListener { _ ->
             val layout = findViewById<NestedScrollView>(R.id.main_layout)
             val bitmap = Bitmap.createBitmap(layout.width, layout.height, Bitmap.Config.ARGB_8888)
