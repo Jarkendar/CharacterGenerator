@@ -307,6 +307,71 @@
                 app:layout_constraintStart_toStartOf="@id/guideline_vertical"
                 app:layout_constraintTop_toBottomOf="@id/label_fear" />
 
+            <TextView
+                android:id="@+id/label_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="5dp"
+                android:labelFor="@id/edit_history"
+                android:text="@string/label_history"
+                app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@id/edit_passive_skill" />
+
+            <EditText
+                android:id="@+id/edit_history"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:inputType="text"
+                android:text="@{viewModel.history}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@id/edit_passive_skill" />
+
+            <TextView
+                android:id="@+id/label_suggest_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="5dp"
+                android:labelFor="@id/spinner_suggest_role"
+                android:text="@string/label_suggest_role"
+                app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@id/edit_history" />
+
+            <Spinner
+                android:id="@+id/spinner_suggest_role"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/roles"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+                app:layout_constraintTop_toTopOf="@id/label_suggest_role"
+                app:layout_constraintBottom_toBottomOf="@id/label_suggest_role"/>
+
+            <TextView
+                android:id="@+id/label_suggest_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="5dp"
+                android:labelFor="@id/edit_suggest_items"
+                android:text="@string/label_suggest_items"
+                app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@id/spinner_suggest_role" />
+
+            <EditText
+                android:id="@+id/edit_suggest_items"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:inputType="text"
+                android:text="@{viewModel.suggestItems}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@id/label_suggest_role" />
+
             <Button
                 android:id="@+id/button_done"
                 android:layout_width="wrap_content"

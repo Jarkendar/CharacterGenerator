@@ -11,20 +11,19 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toFile
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.skrzypczak.charactergenerator.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val model: CharacterViewModel by viewModels()
+    private val model: CharacterViewModel by viewModel()
 
     private val mainScope = CoroutineScope(Dispatchers.Main + Job())
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
@@ -69,6 +68,29 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<EditText>(R.id.edit_passive_skill).addTextChangedListener {
             model.setPassiveSkill(it.toString())
+        }
+
+        findViewById<EditText>(R.id.edit_history).addTextChangedListener {
+            model.setHistory(it.toString())
+        }
+
+        findViewById<Spinner>(R.id.spinner_suggest_role).onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                model.setSuggestRole(parent?.getItemAtPosition(position).toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //ignore
+            }
+        }
+
+        findViewById<EditText>(R.id.edit_suggest_items).addTextChangedListener {
+            model.setSuggestItems(it.toString())
         }
 
         findViewById<Button>(R.id.button_done).setOnClickListener { _ ->

@@ -39,6 +39,15 @@ class CharacterViewModel: ViewModel() {
     private val _passiveSkill = MutableLiveData<String>().apply { postValue("") }
     val passiveSkill: LiveData<String> = _passiveSkill
 
+    private val _history = MutableLiveData<String>().apply { postValue("") }
+    val history: LiveData<String> = _history
+
+    private val _role = MutableLiveData<String>().apply { postValue("") }
+    val role: LiveData<String> = _role
+
+    private val _suggestItems = MutableLiveData<String>().apply { postValue("") }
+    val suggestItems: LiveData<String> = _suggestItems
+
     fun setCharacterName(name: String) {
         _characterName.value = name
     }
@@ -81,5 +90,17 @@ class CharacterViewModel: ViewModel() {
 
     fun setPassiveSkill(text: String) {
         _passiveSkill.value = text
+    }
+
+    fun setHistory(text: String) {
+        _history.value = text
+    }
+
+    fun setSuggestRole(role: String) {
+        _role.value = role
+    }
+
+    fun setSuggestItems(text: String) {
+        _suggestItems.value = text
     }
 }

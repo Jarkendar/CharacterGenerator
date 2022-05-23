@@ -11,6 +11,9 @@
     <string name="label_damage_limit">Damage limit</string>
     <string name="label_fear_limit">Fear limit</string>
     <string name="label_passive_skill">Passive skill</string>
+    <string name="label_history">History</string>
+    <string name="label_suggest_role">Suggest role</string>
+    <string name="label_suggest_items">Suggest items</string>
     <string name="button_done">Done</string>
 
     <string-array name="races">
@@ -23,5 +26,14 @@
         <item>Orc</item>
         <item>Ent</item>
         <item>Troll</item>
+    </string-array>
+
+    <string-array name="roles">
+        <item>Defender</item>
+        <item>Pathfinder</item>
+        <item>Hunter</item>
+        <item>Captain</item>
+        <item>Musician</item>
+        <item>Burglar</item>
     </string-array>
 </resources>
