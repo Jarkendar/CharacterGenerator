@@ -1,23 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/obverse_clear"
     tools:context=".ui.ObverseFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.skrzypczak.charactergenerator.CharacterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/obverse_card_layout"
+            android:layout_width="712dp"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/obverse_clear"
+                android:elevation="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_character_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="458dp"
+                android:autofillHints="username"
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="Name"
+                android:inputType="text"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:text="@{viewModel.characterName}"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_strength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="210dp"
+                android:layout_marginTop="38dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="3"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.attrStrength.toString()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_wisdom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="3"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.attrWisdom.toString()}"
+                app:layout_constraintEnd_toEndOf="@id/edit_strength"
+                app:layout_constraintStart_toStartOf="@id/edit_strength"
+                app:layout_constraintTop_toTopOf="@id/edit_strength" />
+
+            <EditText
+                android:id="@+id/edit_agility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="3"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.attrAgility.toString()}"
+                app:layout_constraintEnd_toEndOf="@id/edit_strength"
+                app:layout_constraintStart_toStartOf="@id/edit_strength"
+                app:layout_constraintTop_toTopOf="@id/edit_wisdom" />
+
+            <EditText
+                android:id="@+id/edit_spirit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="3"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.attrSpirit.toString()}"
+                app:layout_constraintEnd_toEndOf="@id/edit_strength"
+                app:layout_constraintStart_toStartOf="@id/edit_strength"
+                app:layout_constraintTop_toTopOf="@id/edit_agility" />
+
+            <EditText
+                android:id="@+id/edit_wit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="2"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.attrWit.toString()}"
+                app:layout_constraintEnd_toEndOf="@id/edit_strength"
+                app:layout_constraintStart_toStartOf="@id/edit_strength"
+                app:layout_constraintTop_toTopOf="@id/edit_spirit" />
+
+            <EditText
+                android:id="@+id/edit_inspiration_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="605dp"
+                android:layout_marginTop="155dp"
+                android:layout_marginEnd="95dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="4"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.inspirationLimit.toString()}"
+                android:textColor="@color/white"
+                android:textColorHint="#90FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_fear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="620dp"
+                android:layout_marginTop="196dp"
+                android:layout_marginEnd="80dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="5"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.fearLimit.toString()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_damage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:hint="5"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="@{viewModel.damageLimit.toString()}"
+                app:layout_constraintEnd_toEndOf="@id/edit_fear"
+                app:layout_constraintStart_toStartOf="@id/edit_fear"
+                app:layout_constraintTop_toTopOf="@id/edit_fear" />
+
+            <Spinner
+                android:id="@+id/spinner_races"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="495dp"
+                android:layout_marginBottom="14dp"
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:entries="@array/races"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_passive_skill"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="355dp"
+                android:layout_marginTop="295dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="50dp"
+                android:autofillHints=""
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:gravity="start|top"
+                android:hint="Passive skill"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="406dp"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/golum_native"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintTop_toTopOf="@id/image"
+                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintEnd_toEndOf="@id/image"
+                android:onClick="@{() -> viewModel.chooseImage()}"
+                android:text="Zmień obraz"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

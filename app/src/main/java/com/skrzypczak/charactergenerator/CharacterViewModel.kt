@@ -1,10 +1,27 @@
 package com.skrzypczak.charactergenerator
 
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.io.IOException
 
-class CharacterViewModel: ViewModel() {
+class CharacterViewModel(private val context: Context): ViewModel() {
 
     private val _characterName = MutableLiveData<String>().apply { postValue("") }
     val characterName: LiveData<String> = _characterName
@@ -12,8 +29,8 @@ class CharacterViewModel: ViewModel() {
     private val _race = MutableLiveData<String>().apply { postValue("") }
     val race: LiveData<String> = _race
 
-    private val _attrStrong = MutableLiveData<Int>().apply { postValue(3) }
-    val attrStrong: LiveData<Int> = _attrStrong
+    private val _attrStrength = MutableLiveData<Int>().apply { postValue(3) }
+    val attrStrength: LiveData<Int> = _attrStrength
 
     private val _attrWisdom = MutableLiveData<Int>().apply { postValue(3) }
     val attrWisdom: LiveData<Int> = _attrWisdom
@@ -48,6 +65,17 @@ class CharacterViewModel: ViewModel() {
     private val _suggestItems = MutableLiveData<String>().apply { postValue("") }
     val suggestItems: LiveData<String> = _suggestItems
 
+    private var obverseLayout: ConstraintLayout? = null
+    private var reverseLayout: ConstraintLayout? = null
+    private val mainScope = CoroutineScope(Dispatchers.Main + Job())
+    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
+
+    private val TAG = "*****"
+
+    init {
+        Log.d(TAG, ": $this")
+    }
+
     fun setCharacterName(name: String) {
         _characterName.value = name
     }
@@ -56,8 +84,8 @@ class CharacterViewModel: ViewModel() {
         _race.value = race
     }
 
-    fun setStrong(value: Int) {
-        _attrStrong.value = value
+    fun setStrength(value: Int) {
+        _attrStrength.value = value
     }
 
     fun setWisdom(value: Int) {
@@ -102,5 +130,92 @@ class CharacterViewModel: ViewModel() {
 
     fun setSuggestItems(text: String) {
         _suggestItems.value = text
+    }
+
+    fun setObverseLayout(view: ConstraintLayout) {
+        Log.d(TAG, ":2 $this; $view")
+        obverseLayout = view
+    }
+
+    fun setReverseLayout(view: ConstraintLayout) {
+        reverseLayout = view
+    }
+
+    fun chooseImage() {
+        Log.d(TAG, ":4 $this")
+        MaterialAlertDialogBuilder(obverseLayout!!.context)
+            .setTitle("Wybierz źródło")
+            .setItems(arrayOf("Zrób zdjęcie", "Wybierz zdjęcie")) { dialog, which ->
+                when(which) {
+                    0 -> Log.d("*****", "0")
+                    1 -> Log.d("*****", "1")
+                    else -> Log.d("*****", "-1")
+                }
+
+            }
+            .show()
+    }
+
+    fun generateCard() {
+        Log.d(TAG, ":3 $this;")
+        val layout = obverseLayout ?: return
+        ioScope.launch {
+            try {
+                val bitmap = Bitmap.createBitmap(layout.width, layout.height, Bitmap.Config.ARGB_8888)
+                val canvas = Canvas(bitmap)
+                layout.draw(canvas)
+
+                val uri = saveBitmap(context, bitmap, Bitmap.CompressFormat.PNG, "image/png", "test.png")
+
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    putExtra(Intent.EXTRA_EMAIL, "arageros96@gmail.com")
+                    putExtra(Intent.EXTRA_SUBJECT, "On The Job")
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    type = "image/png"
+                }
+                mainScope.launch {
+                    context.startActivity(Intent.createChooser(intent, "Share you on the jobing"))
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    fun saveBitmap(
+        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
+        mimeType: String, displayName: String
+    ): Uri {
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        }
+
+        val resolver = context.contentResolver
+        var uri: Uri? = null
+
+        try {
+            uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                ?: throw IOException("Failed to create new MediaStore record.")
+
+            resolver.openOutputStream(uri)?.use {
+                if (!bitmap.compress(format, 95, it))
+                    throw IOException("Failed to save bitmap.")
+            } ?: throw IOException("Failed to open output stream.")
+
+            return uri
+
+        } catch (e: IOException) {
+
+            uri?.let { orphanUri ->
+                // Don't leave an orphan entry in the MediaStore
+                resolver.delete(orphanUri, null, null)
+            }
+
+            throw e
+        }
     }
 }

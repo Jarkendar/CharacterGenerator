@@ -1,12 +1,12 @@
 package com.skrzypczak.charactergenerator
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel {
-        CharacterViewModel()
+    single {
+        CharacterViewModel(androidContext())
     }
-
 }

@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<SeekBar>(R.id.seekBar_strong).setOnSeekBarChangeListener(createSeekBarChangeListener { model.setStrong(it) })
+        findViewById<SeekBar>(R.id.seekBar_strong).setOnSeekBarChangeListener(createSeekBarChangeListener { model.setStrength(it) })
         findViewById<SeekBar>(R.id.seekBar_wisdom).setOnSeekBarChangeListener(createSeekBarChangeListener { model.setWisdom(it) })
         findViewById<SeekBar>(R.id.seekBar_agility).setOnSeekBarChangeListener(createSeekBarChangeListener { model.setAgility(it) })
         findViewById<SeekBar>(R.id.seekBar_spirit).setOnSeekBarChangeListener(createSeekBarChangeListener { model.setSpirit(it) })
@@ -150,6 +151,7 @@ class MainActivity : AppCompatActivity() {
 
         } catch (e: IOException) {
 
+            e.printStackTrace()
             uri?.let { orphanUri ->
                 // Don't leave an orphan entry in the MediaStore
                 resolver.delete(orphanUri, null, null)
