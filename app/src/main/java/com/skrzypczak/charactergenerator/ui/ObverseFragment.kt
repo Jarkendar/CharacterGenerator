@@ -1,5 +1,6 @@
 package com.skrzypczak.charactergenerator.ui
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +8,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.skrzypczak.charactergenerator.CharacterViewModel
+import com.skrzypczak.charactergenerator.PageListener
 import com.skrzypczak.charactergenerator.R
+import com.skrzypczak.charactergenerator.createViewBitmap
 import com.skrzypczak.charactergenerator.databinding.FragmentObverseBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ObverseFragment : Fragment() {
+class ObverseFragment : Fragment(), PageListener {
 
     private var _binding: FragmentObverseBinding? = null
 
@@ -51,12 +55,16 @@ class ObverseFragment : Fragment() {
                 //ignore
             }
         }
-        viewModel.setObverseLayout(root.findViewById(R.id.obverse_card_layout))
+        viewModel.initObverseListener(this)
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun getScreenShot(): Bitmap {//todo prepare layout to make beautiful screenshot
+        return binding.root.findViewById<ConstraintLayout>(R.id.obverse_card_layout).createViewBitmap()
     }
 }

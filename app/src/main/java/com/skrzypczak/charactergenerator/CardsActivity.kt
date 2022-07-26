@@ -1,8 +1,9 @@
 package com.skrzypczak.charactergenerator
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -10,15 +11,19 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skrzypczak.charactergenerator.databinding.ActivityCardBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CardsActivity : AppCompatActivity() {
+class CardsActivity : AppCompatActivity(), CardPresenter {
 
     private lateinit var binding: ActivityCardBinding
 
+    private val controller: CardsActivityController by inject()
     private val viewModel: CharacterViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,5 +53,25 @@ class CardsActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.visibility = View.GONE
+
+        controller.initialize(this)
+    }
+
+    override fun showImageInputChooser() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Wybierz źródło")
+            .setItems(arrayOf("Zrób zdjęcie", "Wybierz zdjęcie")) { _, which ->
+                when(which) {
+                    0 -> Log.d("*****", "0")
+                    1 -> Log.d("*****", "1")
+                    else -> Log.d("*****", "-1")
+                }
+
+            }
+            .show()
+    }
+
+    override fun createChooser(intent: Intent) {
+        this.startActivity(Intent.createChooser(intent, "Share you on the jobing"))
     }
 }

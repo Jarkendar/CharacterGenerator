@@ -1,16 +1,21 @@
 package com.skrzypczak.charactergenerator.ui
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.skrzypczak.charactergenerator.CharacterViewModel
+import com.skrzypczak.charactergenerator.PageListener
+import com.skrzypczak.charactergenerator.R
+import com.skrzypczak.charactergenerator.createViewBitmap
 import com.skrzypczak.charactergenerator.databinding.FragmentReverseBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ReverseFragment : Fragment() {
+class ReverseFragment : Fragment(), PageListener {
 
     private var _binding: FragmentReverseBinding? = null
 
@@ -32,11 +37,18 @@ class ReverseFragment : Fragment() {
 
         val textView: TextView = binding.textDashboard
 
+        viewModel.initReverseListener(this)
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    //todo to change
+    override fun getScreenShot(): Bitmap {
+        return binding.root.findViewById<ConstraintLayout>(R.id.text_dashboard).createViewBitmap()
     }
 }
