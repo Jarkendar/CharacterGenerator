@@ -12,7 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.skrzypczak.charactergenerator.CharacterViewModel
-import com.skrzypczak.charactergenerator.PageListener
 import com.skrzypczak.charactergenerator.R
 import com.skrzypczak.charactergenerator.createViewBitmap
 import com.skrzypczak.charactergenerator.databinding.FragmentObverseBinding

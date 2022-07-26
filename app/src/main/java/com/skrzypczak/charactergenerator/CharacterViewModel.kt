@@ -3,6 +3,7 @@ package com.skrzypczak.charactergenerator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.skrzypczak.charactergenerator.ui.PageListener
 
 class CharacterViewModel(private val controller: CardsActivityController): ViewModel() {
 
