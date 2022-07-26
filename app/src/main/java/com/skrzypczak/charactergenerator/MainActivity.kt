@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,10 @@ import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.skrzypczak.charactergenerator.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
 
@@ -108,7 +110,6 @@ class MainActivity : AppCompatActivity() {
                     val uri = saveBitmap(this@MainActivity.applicationContext, bitmap, Bitmap.CompressFormat.PNG, "image/png", "test.png")
 
                     val intent = Intent(Intent.ACTION_SEND).apply {
-                        putExtra(Intent.EXTRA_EMAIL, "arageros96@gmail.com")
                         putExtra(Intent.EXTRA_SUBJECT, "On The Job")
                         putExtra(Intent.EXTRA_STREAM, uri)
                         type = "image/png"

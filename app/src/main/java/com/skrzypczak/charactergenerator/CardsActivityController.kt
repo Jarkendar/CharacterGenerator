@@ -39,7 +39,6 @@ class CardsActivityController(private val context: Context) {
                 val uri = saveBitmap(context, obverseBitmap, Bitmap.CompressFormat.PNG, "image/png", "test.png")
 
                 val intent = Intent(Intent.ACTION_SEND).apply {
-                    putExtra(Intent.EXTRA_EMAIL, "automatycznynazgul@gmail.com")
                     putExtra(Intent.EXTRA_SUBJECT, "On The Job")
                     putExtra(Intent.EXTRA_STREAM, uri)
                     type = "image/png"
