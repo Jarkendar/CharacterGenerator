@@ -1,6 +1,7 @@
 package com.skrzypczak.charactergenerator
 
 import android.app.Application
+import com.skrzypczak.charactergenerator.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
