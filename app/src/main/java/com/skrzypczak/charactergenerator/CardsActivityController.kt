@@ -2,7 +2,6 @@ package com.skrzypczak.charactergenerator
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
@@ -36,15 +35,11 @@ class CardsActivityController(private val context: Context) {
 
         ioScope.launch {
             try {
-                val uri = saveBitmap(context, obverseBitmap, Bitmap.CompressFormat.PNG, "image/png", "test.png")
+                val mimeType = "image/png"
+                val uriToObverse = saveBitmap(context, obverseBitmap, Bitmap.CompressFormat.PNG, mimeType, "test.png")
 
-                val intent = Intent(Intent.ACTION_SEND).apply {
-                    putExtra(Intent.EXTRA_SUBJECT, "On The Job")
-                    putExtra(Intent.EXTRA_STREAM, uri)
-                    type = "image/png"
-                }
                 mainScope.launch {
-                    presenter.createChooser(intent)
+                    presenter.createChooser(uriToObverse, mimeType)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

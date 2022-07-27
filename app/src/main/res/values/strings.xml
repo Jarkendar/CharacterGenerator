@@ -39,4 +39,15 @@
     <string name="title_activity_cards">CardsActivity</string>
     <string name="title_obverse">Obverse</string>
     <string name="title_reverse">Reverse</string>
+
+    <string name="input_chooser_title">Choose source</string>
+
+    <string-array name="chooser_input_method">
+        <item>Take a photo</item>
+        <item>Choose a picture</item>
+    </string-array>
+
+    <string name="intent_output_chooser_title">Send cards</string>
+    <string name="send_subject">Your custom character card</string>
+
 </resources>

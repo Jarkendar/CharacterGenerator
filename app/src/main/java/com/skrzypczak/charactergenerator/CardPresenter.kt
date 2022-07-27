@@ -1,8 +1,8 @@
 package com.skrzypczak.charactergenerator
 
-import android.content.Intent
+import android.net.Uri
 
 interface CardPresenter {
     fun showImageInputChooser()
-    fun createChooser(intent: Intent)
+    fun createChooser(uriToObverse: Uri, mimeType: String)
 }

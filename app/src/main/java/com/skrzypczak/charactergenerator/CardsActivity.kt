@@ -1,6 +1,7 @@
 package com.skrzypczak.charactergenerator
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,7 +33,10 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
         binding = ActivityCardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.statusBars())
+        WindowInsetsControllerCompat(
+            window,
+            window.decorView
+        ).hide(WindowInsetsCompat.Type.statusBars())
         supportActionBar?.hide()
 
         val navView: BottomNavigationView = binding.navView
@@ -59,19 +63,29 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
 
     override fun showImageInputChooser() {
         MaterialAlertDialogBuilder(this)
-            .setTitle("Wybierz źródło")
-            .setItems(arrayOf("Zrób zdjęcie", "Wybierz zdjęcie")) { _, which ->
-                when(which) {
+            .setTitle(R.string.input_chooser_title)
+            .setItems(R.array.chooser_input_method) { _, which ->
+                when (which) {
                     0 -> Log.d("*****", "0")
                     1 -> Log.d("*****", "1")
                     else -> Log.d("*****", "-1")
                 }
-
             }
             .show()
     }
 
-    override fun createChooser(intent: Intent) {
-        this.startActivity(Intent.createChooser(intent, "Share you on the jobing"))
+    override fun createChooser(uriToObverse: Uri, mimeType: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.send_subject))
+            putExtra(Intent.EXTRA_STREAM, uriToObverse)
+            type = mimeType
+        }
+
+        this.startActivity(
+            Intent.createChooser(
+                intent,
+                getString(R.string.intent_output_chooser_title)
+            )
+        )
     }
 }
