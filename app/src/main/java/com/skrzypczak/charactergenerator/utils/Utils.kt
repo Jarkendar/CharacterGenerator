@@ -10,3 +10,11 @@ fun View.createViewBitmap(): Bitmap {
     draw(canvas)
     return bitmap
 }
+
+fun View.hide() {
+    visibility = View.GONE
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
+}

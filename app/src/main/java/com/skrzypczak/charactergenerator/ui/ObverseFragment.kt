@@ -11,9 +11,8 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.skrzypczak.charactergenerator.CharacterViewModel
-import com.skrzypczak.charactergenerator.R
-import com.skrzypczak.charactergenerator.createViewBitmap
+import com.google.android.material.button.MaterialButton
+import com.skrzypczak.charactergenerator.*
 import com.skrzypczak.charactergenerator.databinding.FragmentObverseBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,6 +64,18 @@ class ObverseFragment : Fragment(), PageListener {
     }
 
     override fun getScreenShot(): Bitmap {//todo prepare layout to make beautiful screenshot
-        return binding.root.findViewById<ConstraintLayout>(R.id.obverse_card_layout).createViewBitmap()
+        prepareLayoutViewsVisibility()
+        val bitmap = binding.root.findViewById<ConstraintLayout>(R.id.obverse_card_layout).createViewBitmap()
+        resetLayoutViewsVisibility()
+        return bitmap
     }
+
+    private fun prepareLayoutViewsVisibility() {
+        binding.root.findViewById<MaterialButton>(R.id.image_chooser_button).hide()
+    }
+
+    private fun resetLayoutViewsVisibility() {
+        binding.root.findViewById<MaterialButton>(R.id.image_chooser_button).show()
+    }
+
 }
