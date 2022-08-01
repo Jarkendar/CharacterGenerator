@@ -34,6 +34,7 @@ class ObverseFragment : Fragment(), PageListener {
     ): View {
         _binding = FragmentObverseBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         val root: View = binding.root
 
         root.findViewById<EditText>(R.id.edit_character_name).addTextChangedListener {

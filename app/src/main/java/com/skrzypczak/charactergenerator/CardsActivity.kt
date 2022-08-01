@@ -1,10 +1,15 @@
 package com.skrzypczak.charactergenerator
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -26,6 +31,16 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
 
     private val controller: CardsActivityController by inject()
     private val viewModel: CharacterViewModel by viewModel()
+
+    private val openImageChooserForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val uri = result.data?.data ?: return@registerForActivityResult
+            val source: ImageDecoder.Source = ImageDecoder.createSource(this.contentResolver, uri)
+
+            viewModel.setCharacterImage(ImageDecoder.decodeDrawable(source))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +82,15 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
             .setItems(R.array.chooser_input_method) { _, which ->
                 when (which) {
                     0 -> Log.d("*****", "0")
-                    1 -> Log.d("*****", "1")
+                    1 -> openImagePicker()
                     else -> Log.d("*****", "-1")
                 }
             }
             .show()
+    }
+
+    private fun openImagePicker() {
+        openImageChooserForResult.launch(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI))
     }
 
     override fun createChooser(uriToObverse: Uri, mimeType: String) {

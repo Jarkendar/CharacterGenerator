@@ -1,5 +1,6 @@
 package com.skrzypczak.charactergenerator
 
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -48,6 +49,9 @@ class CharacterViewModel(private val controller: CardsActivityController): ViewM
 
     private val _suggestItems = MutableLiveData<String>().apply { postValue("") }
     val suggestItems: LiveData<String> = _suggestItems
+
+    private val _characterImage = MutableLiveData<Drawable>()
+    val characterImage: LiveData<Drawable> = _characterImage
 
     private var obversePageListener: PageListener? = null
     private var reversePageListener: PageListener? = null
@@ -106,6 +110,10 @@ class CharacterViewModel(private val controller: CardsActivityController): ViewM
 
     fun setSuggestItems(text: String) {
         _suggestItems.value = text
+    }
+
+    fun setCharacterImage(image: Drawable) {
+        _characterImage.value = image
     }
 
     fun chooseImage() {
