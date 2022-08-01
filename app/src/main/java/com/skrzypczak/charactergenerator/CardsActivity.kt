@@ -2,7 +2,9 @@ package com.skrzypczak.charactergenerator
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -41,6 +43,15 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
             viewModel.setCharacterImage(ImageDecoder.decodeDrawable(source))
         }
     }
+
+    private val captureCameraForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val bitmap: Bitmap = result.data?.extras?.get("data") as Bitmap
+            viewModel.setCharacterImage(BitmapDrawable(resources, bitmap))
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +92,7 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
             .setTitle(R.string.input_chooser_title)
             .setItems(R.array.chooser_input_method) { _, which ->
                 when (which) {
-                    0 -> Log.d("*****", "0")
+                    0 -> captureCameraImage()
                     1 -> openImagePicker()
                     else -> Log.d("*****", "-1")
                 }
@@ -91,6 +102,10 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
 
     private fun openImagePicker() {
         openImageChooserForResult.launch(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI))
+    }
+
+    private fun captureCameraImage() {
+        captureCameraForResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
     }
 
     override fun createChooser(uriToObverse: Uri, mimeType: String) {
