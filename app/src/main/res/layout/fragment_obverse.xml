@@ -46,7 +46,7 @@
                 android:elevation="2dp"
                 android:hint="Name"
                 android:inputType="text"
-                android:maxLength="18"
+                android:maxLength="@integer/max_name_length"
                 android:maxLines="1"
                 android:text="@{viewModel.characterName}"
                 android:textSize="20dp"
@@ -255,7 +255,7 @@
                 app:layout_constraintStart_toStartOf="@id/image"
                 app:layout_constraintEnd_toEndOf="@id/image"
                 android:onClick="@{() -> viewModel.chooseImage()}"
-                android:text="Zmień obraz"/>
+                android:text="@string/change_image_button"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

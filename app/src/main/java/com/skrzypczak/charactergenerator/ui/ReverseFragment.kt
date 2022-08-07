@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.skrzypczak.charactergenerator.CharacterViewModel
@@ -31,10 +30,8 @@ class ReverseFragment : Fragment(), PageListener {
     ): View {
 
         _binding = FragmentReverseBinding.inflate(inflater, container, false)
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
         val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
 
         viewModel.initReverseListener(this)
 
@@ -48,6 +45,6 @@ class ReverseFragment : Fragment(), PageListener {
 
     //todo to change
     override fun getScreenShot(): Bitmap {
-        return binding.root.findViewById<ConstraintLayout>(R.id.text_dashboard).createViewBitmap()
+        return binding.root.findViewById<ConstraintLayout>(R.id.reverse_card_layout).createViewBitmap()
     }
 }

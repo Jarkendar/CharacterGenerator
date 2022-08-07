@@ -49,5 +49,6 @@
 
     <string name="intent_output_chooser_title">Send cards</string>
     <string name="send_subject">Your custom character card</string>
+    <string name="change_image_button">Change image</string>
 
 </resources>
