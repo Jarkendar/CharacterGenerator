@@ -63,7 +63,7 @@ class ObverseFragment : Fragment(), PageListener {
         _binding = null
     }
 
-    override fun getScreenShot(): Bitmap {//todo prepare layout to make beautiful screenshot
+    override fun getScreenShot(): Bitmap {
         prepareLayoutViewsVisibility()
         val bitmap = binding.root.findViewById<ConstraintLayout>(R.id.obverse_card_layout).createViewBitmap()
         resetLayoutViewsVisibility()

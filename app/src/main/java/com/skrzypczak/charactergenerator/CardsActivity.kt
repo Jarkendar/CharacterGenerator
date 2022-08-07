@@ -9,17 +9,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skrzypczak.charactergenerator.databinding.ActivityCardBinding
@@ -27,9 +22,10 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CardsActivity : AppCompatActivity(), CardPresenter {
+class CardsActivity : FragmentActivity(), CardPresenter {
 
     private lateinit var binding: ActivityCardBinding
+    private lateinit var viewPager: ViewPager2
 
     private val controller: CardsActivityController by inject()
     private val viewModel: CharacterViewModel by viewModel()
@@ -52,7 +48,6 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,28 +58,29 @@ class CardsActivity : AppCompatActivity(), CardPresenter {
             window,
             window.decorView
         ).hide(WindowInsetsCompat.Type.statusBars())
-        supportActionBar?.hide()
 
-        val navView: BottomNavigationView = binding.navView
+        viewPager = findViewById(R.id.pager)
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_card)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_obverse, R.id.navigation_reverse
-            )
-        )
+        // The pager adapter, which provides the pages to the view pager widget.
+        val pagerAdapter = CardActivityPagerAdapter(this)
+        viewPager.adapter = pagerAdapter
 
         findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
             viewModel.generateCard()
         }
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-        navView.visibility = View.GONE
-
         controller.initialize(this)
+    }
+
+    override fun onBackPressed() {
+        if (viewPager.currentItem == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed()
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.currentItem = viewPager.currentItem - 1
+        }
     }
 
     override fun showImageInputChooser() {
