@@ -4,5 +4,5 @@ import android.net.Uri
 
 interface CardPresenter {
     fun showImageInputChooser()
-    fun createChooser(uriToObverse: Uri, mimeType: String)
+    fun createChooser(uriToObverse: Uri, uriToReverse: Uri, mimeType: String)
 }

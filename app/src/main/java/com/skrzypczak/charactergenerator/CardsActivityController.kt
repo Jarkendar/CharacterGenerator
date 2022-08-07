@@ -24,23 +24,23 @@ class CardsActivityController(private val cardSaver: CardSaver) {
 
     fun generateCard(obverseBitmap: Bitmap?, reverseBitmap: Bitmap?) {
         obverseBitmap ?: return
-//        reverseBitmap ?: return
+        reverseBitmap ?: return
         //todo feature better manage empty data
 
         ioScope.launch {
             try {
                 val mimeType = "image/png"
                 val deferredToObverse = cardSaver.saveBitmap(obverseBitmap, Bitmap.CompressFormat.PNG, mimeType, "obverse.png")
-//                val deferredTToReverse = cardSaver.saveBitmap(context, reverseBitmap, Bitmap.CompressFormat.PNG, mimeType, "reverse.png")
+                val deferredToReverse = cardSaver.saveBitmap(reverseBitmap, Bitmap.CompressFormat.PNG, mimeType, "reverse.png")
 
                 val uriToObverse = deferredToObverse.await()
-//                val uriToReverse = deferredToReverse.await()
+                val uriToReverse = deferredToReverse.await()
 
                 mainScope.launch {
-                    if (uriToObverse == null) {
+                    if (uriToObverse == null || uriToReverse == null) {
 //                        presenter.showError()
                     } else {
-                        presenter.createChooser(uriToObverse, mimeType)
+                        presenter.createChooser(uriToObverse, uriToReverse, mimeType)
                     }
                 }
             } catch (e: IOException) {

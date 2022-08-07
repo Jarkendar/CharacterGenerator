@@ -104,10 +104,10 @@ class CardsActivity : FragmentActivity(), CardPresenter {
         captureCameraForResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
     }
 
-    override fun createChooser(uriToObverse: Uri, mimeType: String) {
-        val intent = Intent(Intent.ACTION_SEND).apply {
+    override fun createChooser(uriToObverse: Uri, uriToReverse: Uri, mimeType: String) {
+        val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.send_subject))
-            putExtra(Intent.EXTRA_STREAM, uriToObverse)
+            putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayListOf(uriToObverse, uriToReverse))
             type = mimeType
         }
 
