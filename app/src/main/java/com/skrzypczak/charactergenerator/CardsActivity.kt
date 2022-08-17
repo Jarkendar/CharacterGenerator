@@ -54,6 +54,9 @@ class CardsActivity : FragmentActivity(), CardPresenter {
         binding = ActivityCardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
         WindowInsetsControllerCompat(
             window,
             window.decorView

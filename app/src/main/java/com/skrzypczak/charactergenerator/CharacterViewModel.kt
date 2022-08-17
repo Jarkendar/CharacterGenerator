@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skrzypczak.charactergenerator.ui.PageListener
 
-class CharacterViewModel(private val controller: CardsActivityController): ViewModel() {
+class CharacterViewModel(private val controller: CardsActivityController) : ViewModel() {
 
     private val _characterName = MutableLiveData<String>().apply { postValue("") }
     val characterName: LiveData<String> = _characterName
@@ -52,6 +52,9 @@ class CharacterViewModel(private val controller: CardsActivityController): ViewM
 
     private val _characterImage = MutableLiveData<Drawable>()
     val characterImage: LiveData<Drawable> = _characterImage
+
+    private val _cardState = MutableLiveData(CardState.DISABLED)
+    val cardState: LiveData<CardState> = _cardState
 
     private var obversePageListener: PageListener? = null
     private var reversePageListener: PageListener? = null
@@ -121,14 +124,30 @@ class CharacterViewModel(private val controller: CardsActivityController): ViewM
     }
 
     fun generateCard() {
-        controller.generateCard(obversePageListener?.getScreenShot(), reversePageListener?.getScreenShot())
+        controller.generateCard(
+            obversePageListener?.getScreenShot(),
+            reversePageListener?.getScreenShot()
+        )
     }
 
     fun initObverseListener(listener: PageListener) {
         obversePageListener = listener
+        changeState(CardState.OBVERSE_ENABLED)
     }
 
     fun initReverseListener(listener: PageListener) {
         reversePageListener = listener
+        changeState(CardState.REVERSE_ENABLED)
+    }
+
+    private fun changeState(cardState: CardState) {
+        val currentState = this.cardState.value
+        _cardState.value = when {
+            currentState == CardState.DISABLED -> cardState
+            currentState == CardState.OBVERSE_ENABLED && cardState == CardState.REVERSE_ENABLED -> CardState.ENABLED
+            currentState == CardState.REVERSE_ENABLED && cardState == CardState.OBVERSE_ENABLED -> CardState.ENABLED
+            currentState == CardState.ENABLED -> CardState.ENABLED
+            else -> CardState.DISABLED
+        }
     }
 }
