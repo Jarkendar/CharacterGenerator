@@ -1,4 +1,4 @@
-package com.skrzypczak.charactergenerator
+package com.skrzypczak.charactergenerator.utils
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

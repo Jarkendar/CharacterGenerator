@@ -12,8 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
-import com.skrzypczak.charactergenerator.*
+import com.skrzypczak.charactergenerator.CharacterViewModel
+import com.skrzypczak.charactergenerator.R
 import com.skrzypczak.charactergenerator.databinding.FragmentObverseBinding
+import com.skrzypczak.charactergenerator.utils.createViewBitmap
+import com.skrzypczak.charactergenerator.utils.hide
+import com.skrzypczak.charactergenerator.utils.show
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ObverseFragment : Fragment(), PageListener {
