@@ -5,6 +5,7 @@
     tools:context=".ui.ObverseFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.skrzypczak.charactergenerator.CharacterViewModel" />
@@ -40,10 +41,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="78dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="458dp"
+                android:layout_marginEnd="454dp"
                 android:autofillHints="username"
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/cormorant_garamond_bold"
                 android:hint="Name"
                 android:inputType="text"
                 android:maxLength="@integer/max_name_length"
@@ -59,10 +61,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="210dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="35dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="3"
                 android:inputType="number"
                 android:maxLength="1"
@@ -80,7 +83,9 @@
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="3"
+
                 android:inputType="number"
                 android:maxLength="1"
                 android:maxLines="1"
@@ -97,7 +102,9 @@
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="3"
+
                 android:inputType="number"
                 android:maxLength="1"
                 android:maxLines="1"
@@ -114,7 +121,9 @@
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="3"
+
                 android:inputType="number"
                 android:maxLength="1"
                 android:maxLines="1"
@@ -130,7 +139,9 @@
                 android:layout_marginTop="50dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
+
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="2"
                 android:inputType="number"
                 android:maxLength="1"
@@ -145,11 +156,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="605dp"
-                android:layout_marginTop="155dp"
+                android:layout_marginTop="154dp"
                 android:layout_marginEnd="95dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+
+                android:fontFamily="@font/trirong_bold"
                 android:hint="4"
                 android:inputType="number"
                 android:maxLength="1"
@@ -166,11 +179,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="620dp"
-                android:layout_marginTop="196dp"
+                android:layout_marginTop="194dp"
+
                 android:layout_marginEnd="80dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="5"
                 android:inputType="number"
                 android:maxLength="1"
@@ -187,7 +202,9 @@
                 android:layout_marginTop="34dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
+
                 android:elevation="2dp"
+                android:fontFamily="@font/trirong_bold"
                 android:hint="5"
                 android:inputType="number"
                 android:maxLength="1"
@@ -208,6 +225,7 @@
                 android:elevation="2dp"
                 android:entries="@array/races"
                 android:textAlignment="center"
+                android:theme="@style/SpinnerTheme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -222,7 +240,9 @@
                 android:layout_marginBottom="50dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
+
                 android:elevation="2dp"
+                android:fontFamily="@font/cormorant_garamond_medium"
                 android:gravity="start|top"
                 android:hint="Passive skill"
                 android:textSize="11sp"
@@ -240,7 +260,6 @@
                 android:layout_marginEnd="406dp"
                 android:layout_marginBottom="50dp"
                 android:scaleType="centerCrop"
-                android:src="@{viewModel.characterImage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -251,12 +270,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/image"
-                app:layout_constraintTop_toTopOf="@id/image"
-                app:layout_constraintStart_toStartOf="@id/image"
-                app:layout_constraintEnd_toEndOf="@id/image"
                 android:onClick="@{() -> viewModel.chooseImage()}"
-                android:text="@string/change_image_button"/>
+                android:text="@string/change_image_button"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintEnd_toEndOf="@id/image"
+                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintTop_toTopOf="@id/image" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

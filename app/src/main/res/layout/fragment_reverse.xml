@@ -5,6 +5,7 @@
     tools:context=".ui.ReverseFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.skrzypczak.charactergenerator.CharacterViewModel" />
@@ -37,16 +38,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="@integer/max_name_length"
-                android:maxLines="1"
                 android:layout_marginTop="23dp"
                 android:elevation="2dp"
-                android:textSize="20dp"
+                android:fontFamily="@font/cormorant_garamond_bold"
+                android:maxLength="@integer/max_name_length"
+                android:maxLines="1"
                 android:text="@{viewModel.characterName}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/edit_history"
@@ -58,11 +59,13 @@
                 android:autofillHints="no"
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+
+                android:fontFamily="@font/cormorant_garamond_italic"
                 android:hint="History"
                 android:inputType="textMultiLine"
+                android:maxLines="8"
                 android:text="@{viewModel.history}"
                 android:textSize="13sp"
-                android:maxLines="8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,13 +80,14 @@
                 android:autofillHints="no"
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
+                android:fontFamily="@font/cormorant_garamond_medium"
                 android:hint="Role: Warrior\nItems: sword, shield"
-                android:inputType="text"
-                android:textAlignment="center"
+                android:inputType="textMultiLine"
                 android:lineHeight="18dp"
-                android:textSize="15sp"
                 android:maxLines="3"
                 android:text="@{viewModel.suggestItems}"
+                android:textAlignment="center"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
