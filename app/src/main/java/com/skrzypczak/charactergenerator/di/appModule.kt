@@ -1,5 +1,7 @@
 package com.skrzypczak.charactergenerator.di
 
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.skrzypczak.charactergenerator.CardSaver
 import com.skrzypczak.charactergenerator.CardsActivityController
 import com.skrzypczak.charactergenerator.CharacterViewModel
@@ -21,5 +23,9 @@ val appModule = module {
 
     single {
         CharacterViewModel(get())
+    }
+
+    single {
+        Firebase.analytics
     }
 }
