@@ -63,6 +63,15 @@ class CardsActivity : FragmentActivity(), CardPresenter {
         ).hide(WindowInsetsCompat.Type.statusBars())
 
         viewPager = findViewById(R.id.pager)
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when(position) {
+                    0 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).show()
+                    1 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).hide()
+                }
+                super.onPageSelected(position)
+            }
+        })
 
         // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = CardActivityPagerAdapter(this)

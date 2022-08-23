@@ -5,8 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skrzypczak.charactergenerator.ui.PageListener
+import java.lang.Integer.min
+import kotlin.random.Random.Default.nextInt
 
 class CharacterViewModel(private val controller: CardsActivityController) : ViewModel() {
+
+    companion object {
+        private const val ATTR_DEFAULT_VALUE = 2
+        private val INDICES = arrayOf(0, 1, 2, 3, 4)
+    }
 
     private val _characterName = MutableLiveData<String>().apply { postValue("") }
     val characterName: LiveData<String> = _characterName
@@ -121,6 +128,27 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
 
     fun chooseImage() {
         controller.chooseImage()
+    }
+
+    fun randomizeNumberStats() {
+        val array = Array(5) { 0 }
+
+        for (i in 0 until 5) {
+            array[i] = nextInt(min(4, 4 - array.sum()))
+        }
+
+        INDICES.shuffle()
+
+        _attrStrength.value = ATTR_DEFAULT_VALUE + array[INDICES[0]]
+        _attrWisdom.value = ATTR_DEFAULT_VALUE + array[INDICES[1]]
+        _attrAgility.value = ATTR_DEFAULT_VALUE + array[INDICES[2]]
+        _attrSpirit.value = ATTR_DEFAULT_VALUE + array[INDICES[3]]
+        _attrWit.value = ATTR_DEFAULT_VALUE + array[INDICES[4]]
+
+        _inspirationLimit.value = nextInt(3, 6 + 1)
+
+        _damageLimit.value = nextInt(3, 7 + 1)
+        _fearLimit.value = 10 - (_damageLimit.value ?: 0)
     }
 
     fun generateCard() {

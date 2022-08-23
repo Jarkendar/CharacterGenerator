@@ -33,7 +33,18 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@{viewModel.cardState == CardState.ENABLED ? @drawable/fab_enabled : @drawable/fab_disabled}" />
+            app:srcCompat="@{viewModel.cardState == CardState.ENABLED ? @drawable/confirm_fab_enabled : @drawable/confirm_fab_disabled}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/random_stats_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="@{() -> viewModel.randomizeNumberStats()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/random_dice" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
