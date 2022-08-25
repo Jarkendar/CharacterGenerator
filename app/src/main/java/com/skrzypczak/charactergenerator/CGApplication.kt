@@ -2,6 +2,7 @@ package com.skrzypczak.charactergenerator
 
 import android.app.Application
 import com.skrzypczak.charactergenerator.di.appModule
+import com.skrzypczak.charactergenerator.di.databaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,7 +14,7 @@ class CGApplication: Application() {
 
         startKoin {
             androidContext(this@CGApplication)
-            modules(appModule)
+            modules(appModule, databaseModule)
         }
     }
 }
