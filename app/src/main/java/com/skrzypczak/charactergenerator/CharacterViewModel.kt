@@ -1,11 +1,15 @@
 package com.skrzypczak.charactergenerator
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.skrzypczak.charactergenerator.database.CardAttribution
+import com.skrzypczak.charactergenerator.database.CardModel
 import com.skrzypczak.charactergenerator.ui.PageListener
 import java.lang.Integer.min
+import java.util.*
 import kotlin.random.Random.Default.nextInt
 
 class CharacterViewModel(private val controller: CardsActivityController) : ViewModel() {
@@ -149,6 +153,30 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
 
         _damageLimit.value = nextInt(3, 7 + 1)
         _fearLimit.value = 10 - (_damageLimit.value ?: 0)
+    }
+
+    fun saveCard() {
+        controller.insertCard(
+            CardModel(
+                Date(),
+                characterName.value ?: "",
+                race.value ?: "",
+                Uri.EMPTY,
+                CardAttribution(
+                    attrStrength.value ?: ATTR_DEFAULT_VALUE,
+                    attrWisdom.value ?: ATTR_DEFAULT_VALUE,
+                    attrAgility.value ?: ATTR_DEFAULT_VALUE,
+                    attrSpirit.value ?: ATTR_DEFAULT_VALUE,
+                    attrWit.value ?: ATTR_DEFAULT_VALUE,
+                    inspirationLimit.value ?: 4,
+                    damageLimit.value ?: 5,
+                    fearLimit.value ?: 5
+                ),
+                passiveSkill.value ?: "",
+                history.value ?: "",
+                suggestItems.value ?: ""
+            )
+        )//todo save image and uri
     }
 
     fun generateCard() {

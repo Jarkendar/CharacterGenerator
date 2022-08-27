@@ -1,13 +1,15 @@
 package com.skrzypczak.charactergenerator
 
 import android.graphics.Bitmap
+import com.skrzypczak.charactergenerator.database.CardModel
+import com.skrzypczak.charactergenerator.database.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class CardsActivityController(private val cardSaver: CardSaver) {
+class CardsActivityController(private val repository: Repository, private val cardSaver: CardSaver) {
 
     private lateinit var presenter: CardPresenter
 
@@ -16,6 +18,14 @@ class CardsActivityController(private val cardSaver: CardSaver) {
 
     fun initialize(presenter: CardPresenter) {
         this.presenter = presenter
+    }
+
+    fun getAllSavedCard() = repository.allCards()
+
+    fun insertCard(cardModel: CardModel) {
+        ioScope.launch {
+            repository.insertCard(cardModel)
+        }
     }
 
     fun chooseImage() {

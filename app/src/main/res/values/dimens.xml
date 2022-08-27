@@ -4,4 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <integer name="max_name_length">16</integer>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="main_fab_margin">20dp</dimen>
+
 </resources>

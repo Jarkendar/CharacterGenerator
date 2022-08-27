@@ -1,12 +1,10 @@
 package com.skrzypczak.charactergenerator.database
 
-import kotlinx.coroutines.flow.Flow
-
 class Repository(cardsRoomDatabase: CardsRoomDatabase) {
 
     private val cardsDao: CardsDao = cardsRoomDatabase.cardsDao()
 
-    val allCards: Flow<List<CardModel>> = cardsDao.getAll()
+    fun allCards() = cardsDao.getAll()
 
     fun get(timestamp: Long) = cardsDao.get(timestamp)
 

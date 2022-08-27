@@ -31,6 +31,7 @@ class ReverseFragment : Fragment(), PageListener {
 
         _binding = FragmentReverseBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         val root: View = binding.root
 
         viewModel.initReverseListener(this)

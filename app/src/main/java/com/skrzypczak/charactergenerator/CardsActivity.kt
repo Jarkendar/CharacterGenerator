@@ -66,8 +66,9 @@ class CardsActivity : FragmentActivity(), CardPresenter {
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when(position) {
-                    0 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).show()
-                    1 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).hide()
+                    0 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).hide()
+                    1 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).show()
+                    2 -> findViewById<FloatingActionButton>(R.id.random_stats_fab).hide()
                 }
                 super.onPageSelected(position)
             }
@@ -77,7 +78,7 @@ class CardsActivity : FragmentActivity(), CardPresenter {
         val pagerAdapter = CardActivityPagerAdapter(this)
         viewPager.adapter = pagerAdapter
 
-        findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.confirm_fab).setOnClickListener {
             viewModel.generateCard()
         }
 
