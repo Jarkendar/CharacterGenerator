@@ -3,12 +3,21 @@ package com.skrzypczak.charactergenerator.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.skrzypczak.charactergenerator.CardSaver
 import com.skrzypczak.charactergenerator.database.CardModel
 import com.skrzypczak.charactergenerator.databinding.CardSavesItemBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract,
-                                      private var list: List<CardModel>
+                                      private var list: List<CardModel>,
+                                      private val cardSaver: CardSaver
 ) : RecyclerView.Adapter<CardSaveItemRecyclerViewAdapter.ViewHolder>() {
+
+    private val mainScope = CoroutineScope(Dispatchers.Main + Job())
+    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 
     interface OnUserInteract {
         fun onItemClick(cardModel: CardModel)
@@ -26,7 +35,6 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-//        holder.thumbnail =
         holder.name.text = item.name
         holder.race.text = item.race
         holder.date.text = item.timeStamp.toString()
@@ -41,6 +49,13 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
 
         holder.itemView.setOnClickListener {
             onUserInteract.onItemClick(item)
+        }
+
+        ioScope.launch {
+            val thumbnail = cardSaver.getDrawableFromUri(item.imageUri)
+            mainScope.launch {
+                holder.thumbnail.setImageDrawable(thumbnail)
+            }
         }
     }
 

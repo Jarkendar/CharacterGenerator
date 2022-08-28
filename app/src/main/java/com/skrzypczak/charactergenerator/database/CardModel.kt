@@ -12,13 +12,13 @@ data class CardModel(
     val timeStamp: Date,
     val name: String,
     val race: String,
-    val imageUri: Uri,
     @Embedded
     val attribution: CardAttribution,
     val passiveSkill: String,
     val history: String,
-    val suggestStartSet: String
-)
+    val suggestStartSet: String,
+    var imageUri: Uri? = Uri.EMPTY
+    )
 
 data class CardAttribution(
     val strength: Int,

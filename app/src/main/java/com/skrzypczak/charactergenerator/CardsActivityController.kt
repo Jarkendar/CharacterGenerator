@@ -1,6 +1,9 @@
 package com.skrzypczak.charactergenerator
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import com.skrzypczak.charactergenerator.database.CardModel
 import com.skrzypczak.charactergenerator.database.Repository
 import kotlinx.coroutines.CoroutineScope
@@ -8,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 
 class CardsActivityController(private val repository: Repository, private val cardSaver: CardSaver) {
 
@@ -22,9 +26,15 @@ class CardsActivityController(private val repository: Repository, private val ca
 
     fun getAllSavedCard() = repository.allCards()
 
-    fun insertCard(cardModel: CardModel) {
+    fun readImage(uri: Uri?): Drawable? {
+        return cardSaver.getDrawableFromUri(uri)
+    }
+
+    fun insertCard(cardModel: CardModel, image: Drawable?) {
         ioScope.launch {
-            repository.insertCard(cardModel)
+            val bitmap = (image as? BitmapDrawable)?.bitmap
+            val uri = cardSaver.saveBitmap(bitmap, Bitmap.CompressFormat.PNG, "image/png", UUID.randomUUID().toString()).await()
+            repository.insertCard(cardModel.apply { imageUri = uri ?: Uri.EMPTY })
         }
     }
 

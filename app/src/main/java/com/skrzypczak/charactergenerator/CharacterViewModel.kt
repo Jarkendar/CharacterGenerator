@@ -1,7 +1,6 @@
 package com.skrzypczak.charactergenerator
 
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -161,7 +160,6 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
                 Date(),
                 characterName.value ?: "",
                 race.value ?: "",
-                Uri.EMPTY,
                 CardAttribution(
                     attrStrength.value ?: ATTR_DEFAULT_VALUE,
                     attrWisdom.value ?: ATTR_DEFAULT_VALUE,
@@ -175,8 +173,9 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
                 passiveSkill.value ?: "",
                 history.value ?: "",
                 suggestItems.value ?: ""
-            )
-        )//todo save image and uri
+            ),
+            characterImage.value
+        )
     }
 
     fun loadCard(cardModel: CardModel) {
@@ -193,7 +192,7 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
         _passiveSkill.value = cardModel.passiveSkill
         _history.value = cardModel.history
         _suggestItems.value = cardModel.suggestStartSet
-//        _characterImage.value = controller.readImage(cardModel.imageUri)
+        _characterImage.value = controller.readImage(cardModel.imageUri)
     }
 
     fun generateCard() {
