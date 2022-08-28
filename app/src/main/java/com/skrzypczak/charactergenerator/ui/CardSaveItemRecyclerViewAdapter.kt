@@ -11,7 +11,7 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
 ) : RecyclerView.Adapter<CardSaveItemRecyclerViewAdapter.ViewHolder>() {
 
     interface OnUserInteract {
-        fun onItemClick()
+        fun onItemClick(cardModel: CardModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +26,7 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
+//        holder.thumbnail =
         holder.name.text = item.name
         holder.race.text = item.race
         holder.date.text = item.timeStamp.toString()
@@ -39,7 +40,7 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
         holder.damage.text = item.attribution.damageLimit.toString()
 
         holder.itemView.setOnClickListener {
-            onUserInteract.onItemClick()
+            onUserInteract.onItemClick(item)
         }
     }
 
@@ -70,5 +71,6 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
             val inspiration = binding.inspirationLabel
             val fear = binding.fearLabel
             val damage = binding.damageLabel
+            val thumbnail = binding.cardImage
     }
 }

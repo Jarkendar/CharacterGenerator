@@ -6,6 +6,16 @@
     android:padding="@dimen/margin_default"
     >
 
+    <ImageView
+        android:id="@+id/card_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="@id/name"
+        app:layout_constraintBottom_toBottomOf="@id/strength_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/name"
+        android:src="@drawable/golum_native"/>
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -20,8 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18dp"
+        android:layout_marginStart="@dimen/margin_default"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card_image"
         android:text="LebolassLebolass"
         />
 
@@ -42,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/name"
         android:layout_marginTop="@dimen/margin_default"
         android:src="@drawable/attr_strength_image"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/name"
         />
 
     <TextView

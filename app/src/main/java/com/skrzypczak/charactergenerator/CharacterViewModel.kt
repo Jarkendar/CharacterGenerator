@@ -179,6 +179,23 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
         )//todo save image and uri
     }
 
+    fun loadCard(cardModel: CardModel) {
+        _characterName.value = cardModel.name
+        _race.value = cardModel.race
+        _attrStrength.value = cardModel.attribution.strength
+        _attrWisdom.value = cardModel.attribution.wisdom
+        _attrAgility.value = cardModel.attribution.agility
+        _attrSpirit.value = cardModel.attribution.spirit
+        _attrWit.value = cardModel.attribution.wit
+        _inspirationLimit.value = cardModel.attribution.inspirationLimit
+        _fearLimit.value = cardModel.attribution.fearLimit
+        _damageLimit.value = cardModel.attribution.damageLimit
+        _passiveSkill.value = cardModel.passiveSkill
+        _history.value = cardModel.history
+        _suggestItems.value = cardModel.suggestStartSet
+//        _characterImage.value = controller.readImage(cardModel.imageUri)
+    }
+
     fun generateCard() {
         controller.generateCard(
             obversePageListener?.getScreenShot(),

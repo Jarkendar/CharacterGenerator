@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.skrzypczak.charactergenerator.CharacterViewModel
 import com.skrzypczak.charactergenerator.R
+import com.skrzypczak.charactergenerator.database.CardModel
 import com.skrzypczak.charactergenerator.databinding.FragmentCardSavesListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,6 +18,7 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
 
     private var _binding: FragmentCardSavesListBinding? = null
     private val viewModel: CardSavesViewModel by viewModel()
+    private val characterViewModel: CharacterViewModel by viewModel()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -56,8 +59,8 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
 
     }
 
-    override fun onItemClick() {
-        //todo implement
+    override fun onItemClick(cardModel: CardModel) {
+        characterViewModel.loadCard(cardModel)
     }
 
     override fun onDestroyView() {
