@@ -12,7 +12,7 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.CardSavesFragment"
-        tools:listitem="@layout/fragment_card_saves" />
+        tools:listitem="@layout/card_saves_item" />
 
 </layout>
 

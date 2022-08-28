@@ -138,7 +138,7 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
         val array = Array(5) { 0 }
 
         for (i in 0 until 5) {
-            array[i] = nextInt(min(4, 4 - array.sum()))
+            array[i] = nextInt(min(4, 5 - array.sum()))
         }
 
         INDICES.shuffle()

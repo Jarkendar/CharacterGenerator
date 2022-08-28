@@ -7,5 +7,10 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="main_fab_margin">20dp</dimen>
+    <dimen name="card_save_item_image">20dp</dimen>
+
+    <dimen name="margin_default">5dp</dimen>
+    <dimen name="margin_triple">15dp</dimen>
+
 
 </resources>
