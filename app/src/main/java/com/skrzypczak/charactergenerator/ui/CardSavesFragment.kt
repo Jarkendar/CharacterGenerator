@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skrzypczak.charactergenerator.CardSaver
+import com.skrzypczak.charactergenerator.CardsActivityController
 import com.skrzypczak.charactergenerator.CharacterViewModel
 import com.skrzypczak.charactergenerator.R
 import com.skrzypczak.charactergenerator.database.CardModel
@@ -23,6 +25,7 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
     private val characterViewModel: CharacterViewModel by viewModel()
 
     private val cardSaver: CardSaver by inject()
+    private val controller: CardsActivityController by inject()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -66,6 +69,22 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
 
     override fun onItemClick(cardModel: CardModel) {
         characterViewModel.loadCard(cardModel)
+    }
+
+    override fun onItemLongClick(view: View, cardModel: CardModel) {
+        PopupMenu(view.context, view).apply {
+            setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.remove -> {
+                        controller.removeCard(cardModel)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            inflate(R.menu.card_list_pop_menu)
+            show()
+        }
     }
 
     override fun onDestroyView() {

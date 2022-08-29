@@ -1,6 +1,8 @@
 package com.skrzypczak.charactergenerator.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.skrzypczak.charactergenerator.CardSaver
@@ -23,6 +25,7 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
 
     interface OnUserInteract {
         fun onItemClick(cardModel: CardModel)
+        fun onItemLongClick(view: View, cardModel: CardModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,6 +57,11 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
             notifyItemChanged(selectedPosition)
             notifyItemChanged(position)
             selectedPosition = position
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onUserInteract.onItemLongClick(it, item)
+            return@setOnLongClickListener true
         }
 
         ioScope.launch {

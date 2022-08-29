@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -66,6 +67,17 @@ class CardSaver(private val context: Context, private val ioScope: CoroutineScop
             return Drawable.createFromStream(inputStream, uri.toString())
         } catch (e: FileNotFoundException) {
             return null //todo default placeholder
+        }
+    }
+
+    fun removeImage(uri: Uri?) {
+        if (uri == null || uri == Uri.EMPTY || uri.path?.isEmpty() == true) {
+            return
+        }
+
+        val imageFile = File(uri.path!!)
+        if (imageFile.exists()) {
+            imageFile.delete()
         }
     }
 }

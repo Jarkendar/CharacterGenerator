@@ -38,6 +38,13 @@ class CardsActivityController(private val repository: Repository, private val ca
         }
     }
 
+    fun removeCard(cardModel: CardModel) {
+        ioScope.launch {
+            cardSaver.removeImage(cardModel.imageUri)
+            repository.deleteCard(cardModel)
+        }
+    }
+
     fun chooseImage() {
         presenter.showImageInputChooser()
     }
