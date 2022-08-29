@@ -19,6 +19,8 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
     private val mainScope = CoroutineScope(Dispatchers.Main + Job())
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 
+    private var selectedPosition = RecyclerView.NO_POSITION
+
     interface OnUserInteract {
         fun onItemClick(cardModel: CardModel)
     }
@@ -49,6 +51,9 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
 
         holder.itemView.setOnClickListener {
             onUserInteract.onItemClick(item)
+            notifyItemChanged(selectedPosition)
+            notifyItemChanged(position)
+            selectedPosition = position
         }
 
         ioScope.launch {
@@ -57,6 +62,8 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
                 holder.thumbnail.setImageDrawable(thumbnail)
             }
         }
+
+        holder.itemView.setBackgroundColor(if (selectedPosition == position) Color.GREEN else Color.TRANSPARENT)//todo to change base color
     }
 
     override fun getItemCount(): Int = list.size
