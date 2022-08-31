@@ -13,10 +13,16 @@ android {
         applicationId "com.skrzypczak.charactergenerator"
         minSdk 29
         targetSdk 33
-        versionCode 2
+        versionCode 3
         versionName "1.0.$versionCode"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
