@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.skrzypczak.charactergenerator.CardSaver
-import com.skrzypczak.charactergenerator.CardsActivityController
-import com.skrzypczak.charactergenerator.CharacterViewModel
-import com.skrzypczak.charactergenerator.R
+import com.skrzypczak.charactergenerator.*
 import com.skrzypczak.charactergenerator.database.CardModel
 import com.skrzypczak.charactergenerator.databinding.FragmentCardSavesListBinding
 import org.koin.android.ext.android.inject
@@ -26,6 +24,7 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
 
     private val cardSaver: CardSaver by inject()
     private val controller: CardsActivityController by inject()
+    private val permissionHelper: PermissionHelper by inject()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,6 +34,16 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
     private lateinit var recyclerAdapter: CardSaveItemRecyclerViewAdapter
     private lateinit var recyclerManager: RecyclerView.LayoutManager
 
+    private val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                initRecyclerView(binding.list)
+            } else {
+                activity?.finish()
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +52,10 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
         _binding = FragmentCardSavesListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        initRecyclerView(binding.list)
-
-        viewModel.cardsList.observe(viewLifecycleOwner) {
-            recyclerAdapter.updateData(it)
+        if (permissionHelper.hasReadMediaPermission()) {
+            initRecyclerView(binding.list)
+        } else {
+            permissionHelper.startReadMediaPermissionFlow(requireActivity(), requestPermissionLauncher)
         }
 
         return binding.root
@@ -65,6 +74,9 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
             adapter = recyclerAdapter
         }
 
+        viewModel.cardsList.observe(viewLifecycleOwner) {
+            recyclerAdapter.updateData(it)
+        }
     }
 
     override fun onItemClick(cardModel: CardModel) {

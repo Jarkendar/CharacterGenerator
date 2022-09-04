@@ -53,4 +53,9 @@
 
     <string name="remove">Remove</string>
 
+    <string name="read_permission_title">Required action</string>
+    <string name="read_permission_message">Application use storage to read and write card images. App without permission is unable to action.</string>
+    <string name="read_permission_cancel">Exit</string>
+    <string name="read_permission_accept">OK</string>
+
 </resources>
