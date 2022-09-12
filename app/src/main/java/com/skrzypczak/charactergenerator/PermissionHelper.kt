@@ -25,7 +25,7 @@ class PermissionHelper(private val context: Context) {
     }
 
     private fun showRationale(activity: Activity, resultLauncher: ActivityResultLauncher<String>, permission: String) {
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.read_permission_title)
             .setMessage(R.string.read_permission_message)
             .setNegativeButton(R.string.read_permission_cancel) { _, _ ->
