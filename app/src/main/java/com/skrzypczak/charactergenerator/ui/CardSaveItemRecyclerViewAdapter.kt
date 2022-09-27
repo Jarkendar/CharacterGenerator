@@ -2,7 +2,6 @@ package com.skrzypczak.charactergenerator.ui
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.skrzypczak.charactergenerator.CardSaver
@@ -13,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract,
+class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnCardInteract,
                                       private var list: List<CardModel>,
                                       private val cardSaver: CardSaver
 ) : RecyclerView.Adapter<CardSaveItemRecyclerViewAdapter.ViewHolder>() {
@@ -22,11 +21,6 @@ class CardSaveItemRecyclerViewAdapter(private val onUserInteract: OnUserInteract
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 
     private var selectedPosition = RecyclerView.NO_POSITION
-
-    interface OnUserInteract {
-        fun onItemClick(cardModel: CardModel)
-        fun onItemLongClick(view: View, cardModel: CardModel)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(CardSavesItemBinding.inflate(

@@ -5,77 +5,63 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.PopupMenu
+import androidx.compose.material.Text
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.skrzypczak.charactergenerator.*
+import com.skrzypczak.charactergenerator.CardsActivityController
+import com.skrzypczak.charactergenerator.CharacterViewModel
+import com.skrzypczak.charactergenerator.PermissionHelper
 import com.skrzypczak.charactergenerator.database.CardModel
-import com.skrzypczak.charactergenerator.databinding.FragmentCardSavesListBinding
+import com.skrzypczak.charactergenerator.ui.composable.CardSavesList
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInteract {
+class CardSavesFragment : Fragment(), OnCardInteract {
 
-    private var _binding: FragmentCardSavesListBinding? = null
     private val viewModel: CardSavesViewModel by viewModel()
     private val characterViewModel: CharacterViewModel by viewModel()
 
-    private val cardSaver: CardSaver by inject()
     private val controller: CardsActivityController by inject()
     private val permissionHelper: PermissionHelper by inject()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerAdapter: CardSaveItemRecyclerViewAdapter
-    private lateinit var recyclerManager: RecyclerView.LayoutManager
+    private val storagePermissionIsGranted = mutableStateOf(false)
 
     private val requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                initRecyclerView(binding.list)
-            } else {
-                activity?.finish()
-            }
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            storagePermissionIsGranted.value = true
+        } else {
+            activity?.finish()
         }
-
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCardSavesListBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        if (permissionHelper.hasReadMediaPermission()) {
-            initRecyclerView(binding.list)
+        if (!permissionHelper.hasReadMediaPermission()) {
+            permissionHelper.startReadMediaPermissionFlow(
+                requireActivity(),
+                requestPermissionLauncher
+            )
         } else {
-            permissionHelper.startReadMediaPermissionFlow(requireActivity(), requestPermissionLauncher)
+            storagePermissionIsGranted.value = true
         }
 
-        return binding.root
-    }
-
-    private fun initRecyclerView(view: View) {
-        recyclerView = view.findViewById(R.id.list)
-        recyclerAdapter = CardSaveItemRecyclerViewAdapter(
-            this,
-            viewModel.cardsList.value?.toMutableList() ?: emptyList(),
-            cardSaver
-        )
-        recyclerManager = LinearLayoutManager(context)
-        with(recyclerView) {
-            layoutManager = recyclerManager
-            adapter = recyclerAdapter
-        }
-
-        viewModel.cardsList.observe(viewLifecycleOwner) {
-            recyclerAdapter.updateData(it)
+        return ComposeView(requireContext()).apply {
+            setContent {
+                if (storagePermissionIsGranted.value) {
+                    CardSavesList(viewModel, this@CardSavesFragment)
+                } else {
+                    Text(text = "Placeholder TMP")
+                }
+            }
         }
     }
 
@@ -83,24 +69,7 @@ class CardSavesFragment : Fragment(), CardSaveItemRecyclerViewAdapter.OnUserInte
         characterViewModel.loadCard(cardModel)
     }
 
-    override fun onItemLongClick(view: View, cardModel: CardModel) {
-        PopupMenu(view.context, view).apply {
-            setOnMenuItemClickListener {
-                when(it.itemId) {
-                    R.id.remove -> {
-                        controller.removeCard(cardModel)
-                        true
-                    }
-                    else -> false
-                }
-            }
-            inflate(R.menu.card_list_pop_menu)
-            show()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onRemoveClick(cardModel: CardModel) {
+        controller.removeCard(cardModel)
     }
 }
