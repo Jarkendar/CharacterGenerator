@@ -18,7 +18,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -69,15 +71,16 @@ fun CardSavesItem(cardModel: CardModel, onCardInteract: OnCardInteract) {
         var expanded by remember { mutableStateOf(false) }
 
         Row(modifier = Modifier
-            .padding(3.dp)
+            .padding(8.dp, 3.dp)
             .combinedClickable(
                 onClick = { onCardInteract.onItemClick(cardModel) },
                 onLongClick = { expanded = true }
-            )) {
+            ),
+        verticalAlignment = Alignment.CenterVertically) {
             CardImage(uri = cardModel.imageUri)
             Column(
                 Modifier
-                    .padding(5.dp)
+                    .padding(dimensionResource(id = R.dimen.margin_default))
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
             ) {
@@ -87,13 +90,13 @@ fun CardSavesItem(cardModel: CardModel, onCardInteract: OnCardInteract) {
                         fontSize = 18.sp,
                         modifier = Modifier
                             .alignByBaseline()
-                            .padding(end = 5.dp)
+                            .padding(end = dimensionResource(id = R.dimen.margin_default))
                     )
                     Text(
                         text = cardModel.race,
                         modifier = Modifier
                             .alignByBaseline()
-                            .padding(5.dp)
+                            .padding(0.dp, dimensionResource(id = R.dimen.margin_default))
                     )
                     Text(
                         text = cardModel.timeStamp.toString(), modifier = Modifier
@@ -101,7 +104,7 @@ fun CardSavesItem(cardModel: CardModel, onCardInteract: OnCardInteract) {
                             .fillMaxWidth(), textAlign = TextAlign.End
                     )
                 }
-                Row(Modifier.padding(vertical = 5.dp)) {
+                Row(Modifier.padding(vertical = dimensionResource(id = R.dimen.margin_default))) {
                     CardAttribute(
                         imageRes = R.drawable.attr_strength_image,
                         value = cardModel.attribution.strength
@@ -156,15 +159,15 @@ fun CardAttribute(imageRes: Int, value: Int) {
     Row {
         Image(
             painter = painterResource(id = imageRes),
-            contentDescription = "123",
+            contentDescription = "Attribute",
             modifier = Modifier
-                .size(20.dp)
+                .size(dimensionResource(id = R.dimen.card_save_item_image))
                 .align(Alignment.CenterVertically)
         )
         Text(
             text = value.toString(), modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = 5.dp, end = 15.dp)
+                .padding(start = dimensionResource(id = R.dimen.margin_default), end = dimensionResource(id = R.dimen.margin_triple))
         )
     }
 }
@@ -176,7 +179,8 @@ fun CardImage(uri: Uri?) {
             allowHardware(false)
         }),
         contentDescription = "",
-        modifier = Modifier.size(50.dp, 46.dp)
+        modifier = Modifier.size(46.dp, 50.dp),
+        contentScale = ContentScale.Crop,
     )
 }
 
