@@ -11,7 +11,7 @@ import java.lang.Integer.min
 import java.util.*
 import kotlin.random.Random.Default.nextInt
 
-class CharacterViewModel(private val controller: CardsActivityController) : ViewModel() {
+class CharacterViewModel(private val controller: CardsActivityController, private val characterNameGenerator: CharacterNameGenerator) : ViewModel() {
 
     companion object {
         private const val ATTR_DEFAULT_VALUE = 2
@@ -131,6 +131,10 @@ class CharacterViewModel(private val controller: CardsActivityController) : View
 
     fun chooseImage() {
         controller.chooseImage()
+    }
+
+    fun randomizeName() {
+
     }
 
     fun randomizeNumberStats() {

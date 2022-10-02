@@ -2,10 +2,7 @@ package com.skrzypczak.charactergenerator.di
 
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.skrzypczak.charactergenerator.CardSaver
-import com.skrzypczak.charactergenerator.CardsActivityController
-import com.skrzypczak.charactergenerator.CharacterViewModel
-import com.skrzypczak.charactergenerator.PermissionHelper
+import com.skrzypczak.charactergenerator.*
 import com.skrzypczak.charactergenerator.ui.CardSavesViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +21,7 @@ val appModule = module {
     }
 
     single {
-        CharacterViewModel(get())
+        CharacterViewModel(get(), get())
     }
 
     single {
@@ -37,5 +34,9 @@ val appModule = module {
 
     single {
         PermissionHelper(androidContext())
+    }
+
+    single {
+        CharacterNameGenerator(androidContext(), CoroutineScope(Dispatchers.IO + Job()))
     }
 }

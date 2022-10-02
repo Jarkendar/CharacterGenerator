@@ -26,9 +26,6 @@ class CardSavesFragment : Fragment(), OnCardInteract {
     private val controller: CardsActivityController by inject()
     private val permissionHelper: PermissionHelper by inject()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-
     private val storagePermissionIsGranted = mutableStateOf(false)
 
     private val requestPermissionLauncher = registerForActivityResult(
