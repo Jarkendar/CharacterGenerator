@@ -18,8 +18,7 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
         private val INDICES = arrayOf(0, 1, 2, 3, 4)
     }
 
-    private val _characterName = MutableLiveData<String>().apply { postValue("") }
-    val characterName: LiveData<String> = _characterName
+    val characterName = MutableLiveData<String>().apply { postValue("") }
 
     private val _race = MutableLiveData<String>().apply { postValue("") }
     val race: LiveData<String> = _race
@@ -70,7 +69,7 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
     private var reversePageListener: PageListener? = null
 
     fun setCharacterName(name: String) {
-        _characterName.value = name
+        characterName.postValue(name)
     }
 
     fun setRace(race: String) {
@@ -134,10 +133,13 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
     }
 
     fun randomizeName() {
-
+        characterNameGenerator.generateNameUseMarkow(3, 16) {
+            setCharacterName(it)
+        }
     }
 
     fun randomizeNumberStats() {
+        randomizeName()
         val array = Array(5) { 0 }
 
         for (i in 0 until 5) {
@@ -183,7 +185,7 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
     }
 
     fun loadCard(cardModel: CardModel) {
-        _characterName.value = cardModel.name
+        characterName.value = cardModel.name
         _race.value = cardModel.race
         _attrStrength.value = cardModel.attribution.strength
         _attrWisdom.value = cardModel.attribution.wisdom

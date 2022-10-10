@@ -50,7 +50,7 @@
                 android:inputType="text"
                 android:maxLength="@integer/max_name_length"
                 android:maxLines="1"
-                android:text="@{viewModel.characterName}"
+                android:text="@={viewModel.characterName}"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

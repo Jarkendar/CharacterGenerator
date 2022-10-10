@@ -18,3 +18,6 @@ fun View.hide() {
 fun View.show() {
     visibility = View.VISIBLE
 }
+
+fun String.capitalizeWords(): String =
+    split(" ").joinToString(" ") { word -> word.replaceFirstChar { char -> char.uppercase() } }
