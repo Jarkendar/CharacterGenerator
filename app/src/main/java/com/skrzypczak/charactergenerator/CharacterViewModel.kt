@@ -47,17 +47,11 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
     private val _fearLimit = MutableLiveData<Int>().apply { postValue(5) }
     val fearLimit: LiveData<Int> = _fearLimit
 
-    private val _passiveSkill = MutableLiveData<String>().apply { postValue("") }
-    val passiveSkill: LiveData<String> = _passiveSkill
+    val passiveSkill = MutableLiveData<String>().apply { postValue("") }
 
-    private val _history = MutableLiveData<String>().apply { postValue("") }
-    val history: LiveData<String> = _history
+    val history = MutableLiveData<String>().apply { postValue("") }
 
-    private val _role = MutableLiveData<String>().apply { postValue("") }
-    val role: LiveData<String> = _role
-
-    private val _suggestItems = MutableLiveData<String>().apply { postValue("") }
-    val suggestItems: LiveData<String> = _suggestItems
+    val suggestItems = MutableLiveData<String>().apply { postValue("") }
 
     private val _characterImage = MutableLiveData<Drawable>()
     val characterImage: LiveData<Drawable> = _characterImage
@@ -74,54 +68,6 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
 
     fun setRace(race: String) {
         _race.value = race
-    }
-
-    fun setStrength(value: Int) {
-        _attrStrength.value = value
-    }
-
-    fun setWisdom(value: Int) {
-        _attrWisdom.value = value
-    }
-
-    fun setAgility(value: Int) {
-        _attrAgility.value = value
-    }
-
-    fun setSpirit(value: Int) {
-        _attrSpirit.value = value
-    }
-
-    fun setWit(value: Int) {
-        _attrWit.value = value
-    }
-
-    fun setInspirationLimit(value: Int) {
-        _inspirationLimit.value = value
-    }
-
-    fun setDamageLimit(value: Int) {
-        _damageLimit.value = value
-    }
-
-    fun setFearLimit(value: Int) {
-        _fearLimit.value = value
-    }
-
-    fun setPassiveSkill(text: String) {
-        _passiveSkill.value = text
-    }
-
-    fun setHistory(text: String) {
-        _history.value = text
-    }
-
-    fun setSuggestRole(role: String) {
-        _role.value = role
-    }
-
-    fun setSuggestItems(text: String) {
-        _suggestItems.value = text
     }
 
     fun setCharacterImage(image: Drawable) {
@@ -195,9 +141,9 @@ class CharacterViewModel(private val controller: CardsActivityController, privat
         _inspirationLimit.value = cardModel.attribution.inspirationLimit
         _fearLimit.value = cardModel.attribution.fearLimit
         _damageLimit.value = cardModel.attribution.damageLimit
-        _passiveSkill.value = cardModel.passiveSkill
-        _history.value = cardModel.history
-        _suggestItems.value = cardModel.suggestStartSet
+        passiveSkill.value = cardModel.passiveSkill
+        history.value = cardModel.history
+        suggestItems.value = cardModel.suggestStartSet
         _characterImage.value = controller.readImage(cardModel.imageUri)
     }
 
