@@ -110,10 +110,6 @@ fun CardSavesItem(cardModel: CardModel, onCardInteract: OnCardInteract) {
                         value = cardModel.attribution.strength
                     )
                     CardAttribute(
-                        imageRes = R.drawable.attr_strength_image,
-                        value = cardModel.attribution.strength
-                    )
-                    CardAttribute(
                         imageRes = R.drawable.attr_wisdom_image,
                         value = cardModel.attribution.wisdom
                     )
@@ -124,6 +120,10 @@ fun CardSavesItem(cardModel: CardModel, onCardInteract: OnCardInteract) {
                     CardAttribute(
                         imageRes = R.drawable.attr_spirit_image,
                         value = cardModel.attribution.spirit
+                    )
+                    CardAttribute(
+                        imageRes = R.drawable.attr_wit_image,
+                        value = cardModel.attribution.wit
                     )
                     CardAttribute(
                         imageRes = R.drawable.limit_inspiration_image,
