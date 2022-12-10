@@ -38,7 +38,8 @@ class ObverseFragment : Fragment(), PageListener {
         binding.viewModel = viewModel
         val root: View = binding.root
 
-        root.findViewById<Spinner>(R.id.spinner_races).onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        val racesSpinner = root.findViewById<Spinner>(R.id.spinner_races)
+        racesSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -51,6 +52,16 @@ class ObverseFragment : Fragment(), PageListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //ignore
             }
+        }
+        viewModel.race.observe(viewLifecycleOwner) { currentRace ->
+            var currentRaceIndex = 0
+            resources.getStringArray(R.array.races).forEachIndexed { index, race ->
+                if (race == currentRace) {
+                    currentRaceIndex = index
+                }
+            }
+
+            racesSpinner.setSelection(currentRaceIndex)
         }
         viewModel.initObverseListener(this)
         return root
