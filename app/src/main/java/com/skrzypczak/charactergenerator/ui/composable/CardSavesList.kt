@@ -10,10 +10,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.SwipeLeft
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +22,8 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,15 +46,39 @@ fun CardSavesList(viewModel: CardSavesViewModel, onCardInteract: OnCardInteract)
 
     val cardList: List<CardModel> by flow.collectAsState(initial = emptyList())
 
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-    ) {
-        items(
-            items = cardList,
-            itemContent = {
-                CardSavesItem(cardModel = it, onCardInteract)
+    if (cardList.isEmpty()) {
+        Card(
+            modifier = Modifier
+                .padding(3.dp)
+                .fillMaxSize(),
+            elevation = 2.dp,
+            shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(8.dp, 3.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "The list is empty.\nSwipe left to create your first character card.",
+                    fontSize = 25.sp,
+                    fontFamily = FontFamily(Font(R.font.cormorant_garamond_medium)),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(10.dp))
+                Icon(Icons.TwoTone.SwipeLeft, contentDescription = "", Modifier.size(150.dp))
             }
-        )
+        }
+    } else {
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+        ) {
+            items(
+                items = cardList,
+                itemContent = {
+                    CardSavesItem(cardModel = it, onCardInteract)
+                }
+            )
+        }
     }
 }
 
@@ -167,7 +192,10 @@ fun CardAttribute(imageRes: Int, value: Int) {
         Text(
             text = value.toString(), modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = dimensionResource(id = R.dimen.margin_default), end = dimensionResource(id = R.dimen.margin_triple))
+                .padding(
+                    start = dimensionResource(id = R.dimen.margin_default),
+                    end = dimensionResource(id = R.dimen.margin_triple)
+                )
         )
     }
 }
