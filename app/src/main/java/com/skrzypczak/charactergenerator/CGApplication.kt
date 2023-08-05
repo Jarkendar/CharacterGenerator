@@ -8,7 +8,6 @@ import org.koin.core.context.startKoin
 
 class CGApplication: Application() {
 
-
     override fun onCreate() {
         super.onCreate()
 
